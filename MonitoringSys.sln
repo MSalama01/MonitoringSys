@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitoringSys.DATA", "Monit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitoringSys.Models", "MonitoringSys.Models\MonitoringSys.Models.csproj", "{439B9B89-66E9-4BB6-BFB6-C2980D0EB6F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitoringSys.Services", "MonitoringSys.Services\MonitoringSys.Services.csproj", "{EA7AA339-D71E-45B3-8DD5-0F8AADA6C843}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitoringSys.Repositories", "MonitoringSys.Repositories\MonitoringSys.Repositories.csproj", "{83316DE1-EEB7-4E78-B263-7176BB8730AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{439B9B89-66E9-4BB6-BFB6-C2980D0EB6F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{439B9B89-66E9-4BB6-BFB6-C2980D0EB6F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{439B9B89-66E9-4BB6-BFB6-C2980D0EB6F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA7AA339-D71E-45B3-8DD5-0F8AADA6C843}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA7AA339-D71E-45B3-8DD5-0F8AADA6C843}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA7AA339-D71E-45B3-8DD5-0F8AADA6C843}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA7AA339-D71E-45B3-8DD5-0F8AADA6C843}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83316DE1-EEB7-4E78-B263-7176BB8730AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83316DE1-EEB7-4E78-B263-7176BB8730AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83316DE1-EEB7-4E78-B263-7176BB8730AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83316DE1-EEB7-4E78-B263-7176BB8730AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

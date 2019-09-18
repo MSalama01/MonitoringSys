@@ -13,9 +13,8 @@ namespace MonitoringSys.Models
 
 
         public int? LastVehicleStatusUpdateId { get; set; }
-        //[ForeignKey("LastVehicleStatusUpdateId")]
-        //public virtual VehicleStatusUpdate LastVehicleStatusUpdate { get; set; }
-
+        [ForeignKey("LastVehicleStatusUpdateId")]
+        public virtual VehicleStatusUpdate LastVehicleStatusUpdate { get; set; }
         public virtual List<VehicleStatusUpdate> VehicleStatusUpdates { get; set; }
 
 
