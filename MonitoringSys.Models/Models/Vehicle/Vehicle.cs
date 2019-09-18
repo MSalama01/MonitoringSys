@@ -6,10 +6,8 @@ namespace MonitoringSys.Models
     public class Vehicle : IEntity<int>
     {
         public int Id { get; set; }
-
         [Required]
         public string Name { get; set; }
-
         public string Number { get; set; }
 
         [ForeignKey("Customer")]
@@ -17,6 +15,5 @@ namespace MonitoringSys.Models
         public virtual Customer Customer { get; set; }
 
         public virtual VehicleStatus VehicleStatus { get; set; }
-
     }
 }

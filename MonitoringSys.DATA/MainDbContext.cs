@@ -32,7 +32,6 @@ namespace MonitoringSys.DATA
         }
 
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<Contact> Contacts { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<VehicleStatus> VehicleStatuses { get; set; }
         public DbSet<VehicleStatusUpdate> VehicleStatusUpdates { get; set; }

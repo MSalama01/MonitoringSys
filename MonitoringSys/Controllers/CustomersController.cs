@@ -22,8 +22,7 @@ namespace MonitoringSys.Controllers
         // GET: Customers
         public async Task<IActionResult> Index()
         {
-            var mainDbContext = _context.Customers.Include(c => c.Contact);
-            return View(await mainDbContext.ToListAsync());
+            return View(await _context.Customers.ToListAsync());
         }
 
         // GET: Customers/Details/5
@@ -35,7 +34,6 @@ namespace MonitoringSys.Controllers
             }
 
             var customer = await _context.Customers
-                .Include(c => c.Contact)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (customer == null)
             {
@@ -48,7 +46,6 @@ namespace MonitoringSys.Controllers
         // GET: Customers/Create
         public IActionResult Create()
         {
-            ViewData["ContactId"] = new SelectList(_context.Contacts, "Id", "Name");
             return View();
         }
 
@@ -57,7 +54,7 @@ namespace MonitoringSys.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ContactId")] Customer customer)
+        public async Task<IActionResult> Create([Bind("Id,Name,Mobile,City")] Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +62,6 @@ namespace MonitoringSys.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ContactId"] = new SelectList(_context.Contacts, "Id", "Name", customer.ContactId);
             return View(customer);
         }
 
@@ -82,7 +78,6 @@ namespace MonitoringSys.Controllers
             {
                 return NotFound();
             }
-            ViewData["ContactId"] = new SelectList(_context.Contacts, "Id", "Name", customer.ContactId);
             return View(customer);
         }
 
@@ -91,7 +86,7 @@ namespace MonitoringSys.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ContactId")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Mobile,City")] Customer customer)
         {
             if (id != customer.Id)
             {
@@ -118,7 +113,6 @@ namespace MonitoringSys.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ContactId"] = new SelectList(_context.Contacts, "Id", "Name", customer.ContactId);
             return View(customer);
         }
 
@@ -131,7 +125,6 @@ namespace MonitoringSys.Controllers
             }
 
             var customer = await _context.Customers
-                .Include(c => c.Contact)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (customer == null)
             {

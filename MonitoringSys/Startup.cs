@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MonitoringSys.DATA;
+using MonitoringSys.Repositories;
 
 namespace MonitoringSys
 {
@@ -37,6 +38,7 @@ namespace MonitoringSys
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             services.AddDbContext<MainDbContext>(ServiceLifetime.Scoped);
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         }
 

@@ -19,7 +19,7 @@ namespace MonitoringSys.DATA.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("MonitoringSys.Models.Contact", b =>
+            modelBuilder.Entity("MonitoringSys.Models.Customer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -37,27 +37,7 @@ namespace MonitoringSys.DATA.Migrations
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
 
-                    b.Property<string>("Street")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
-
-                    b.ToTable("Contacts");
-                });
-
-            modelBuilder.Entity("MonitoringSys.Models.Customer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ContactId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ContactId");
 
                     b.ToTable("Customers");
                 });
@@ -120,15 +100,6 @@ namespace MonitoringSys.DATA.Migrations
                     b.HasIndex("VehicleStatusId");
 
                     b.ToTable("VehicleStatusUpdates");
-                });
-
-            modelBuilder.Entity("MonitoringSys.Models.Customer", b =>
-                {
-                    b.HasOne("MonitoringSys.Models.Contact", "Contact")
-                        .WithMany()
-                        .HasForeignKey("ContactId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("MonitoringSys.Models.Vehicle", b =>
