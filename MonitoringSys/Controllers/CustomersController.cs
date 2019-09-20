@@ -7,22 +7,26 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MonitoringSys.DATA;
 using MonitoringSys.Models;
+using MonitoringSys.Repositories;
 
 namespace MonitoringSys.Controllers
 {
     public class CustomersController : Controller
     {
-        private readonly MainDbContext _context;
+        //private readonly MainDbContext _context;
+        //private readonly IUnitOfWork _unitOfWork;
+        private readonly IRepository<Customer> _CustomerRepository;
 
-        public CustomersController(MainDbContext context)
+        public CustomersController(IUnitOfWork unitOfWork)//,ICustomerRepository customerRepository)
         {
-            _context = context;
+            //_unitOfWork = unitOfWork;
+            _CustomerRepository = unitOfWork.GetRepository<Customer>(); 
         }
 
         // GET: Customers
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Customers.ToListAsync());
+            return View(await _CustomerRepository.GetAll().ToListAsync());
         }
 
         // GET: Customers/Details/5
@@ -33,8 +37,7 @@ namespace MonitoringSys.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.Customers
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var customer = await _CustomerRepository.Get(id);
             if (customer == null)
             {
                 return NotFound();
@@ -58,8 +61,7 @@ namespace MonitoringSys.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(customer);
-                await _context.SaveChangesAsync();
+                await _CustomerRepository.Add(customer);
                 return RedirectToAction(nameof(Index));
             }
             return View(customer);
@@ -73,7 +75,7 @@ namespace MonitoringSys.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.Customers.FindAsync(id);
+            var customer = await _CustomerRepository.Get(id);
             if (customer == null)
             {
                 return NotFound();
@@ -97,8 +99,7 @@ namespace MonitoringSys.Controllers
             {
                 try
                 {
-                    _context.Update(customer);
-                    await _context.SaveChangesAsync();
+                    await _CustomerRepository.Update(customer);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -124,8 +125,8 @@ namespace MonitoringSys.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.Customers
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var customer = await _CustomerRepository.Get(id);
+
             if (customer == null)
             {
                 return NotFound();
@@ -139,15 +140,14 @@ namespace MonitoringSys.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            _context.Customers.Remove(customer);
-            await _context.SaveChangesAsync();
+            var customer = await _CustomerRepository.Get(id);
+            await _CustomerRepository.Delete(customer);
             return RedirectToAction(nameof(Index));
         }
 
         private bool CustomerExists(int id)
         {
-            return _context.Customers.Any(e => e.Id == id);
+            return _CustomerRepository.Get(id).Result is null ? false : true;
         }
     }
 }

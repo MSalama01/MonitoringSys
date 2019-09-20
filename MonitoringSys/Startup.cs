@@ -37,8 +37,12 @@ namespace MonitoringSys
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
-            services.AddDbContext<MainDbContext>(ServiceLifetime.Scoped);
+            //services.AddDbContext<MainDbContext>(ServiceLifetime.Singleton);
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            //services.AddScoped<ICustomerRepository, CustomerRepository>();
+
 
         }
 
