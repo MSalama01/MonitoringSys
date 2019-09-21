@@ -14,13 +14,13 @@ namespace MonitoringSys.Repositories
         Task<bool> Update(TEntity entity);
         Task<bool> Delete(TEntity entity);
         Task<TEntity> Get(
-                object Id, 
+                object Id,
                 params Expression<Func<TEntity, object>>[] includes);
 
         Task<TEntity> Get(
              Expression<Func<TEntity, bool>> searchBy,
              params Expression<Func<TEntity, object>>[] includes);
-        
+
         IQueryable<TEntity> GetAll(
                 params Expression<Func<TEntity, object>>[] includes);
 
@@ -28,7 +28,8 @@ namespace MonitoringSys.Repositories
         //        Expression<Func<TEntity, bool>> predicate,
         //        params Expression<Func<TEntity, object>>[] includes);
 
-        IQueryable<TEntity> SearchBy(
+
+        IQueryable<TEntity> GetAll(
                 Expression<Func<TEntity, bool>> searchBy,
                 params Expression<Func<TEntity, object>>[] includes);
     }

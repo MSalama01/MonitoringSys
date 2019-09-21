@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MonitoringSys.Models
 {
-    public class VehicleStatusUpdate : IEntity<int>
+    public class VehicleStatusUpdate : IBaseEntity<int>
     {
         public int Id { get; set; }
         public DateTime UpdatedTime { get; set; }

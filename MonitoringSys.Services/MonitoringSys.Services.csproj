@@ -8,4 +8,8 @@
     <ProjectReference Include="..\MonitoringSys.Repositories\MonitoringSys.Repositories.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>

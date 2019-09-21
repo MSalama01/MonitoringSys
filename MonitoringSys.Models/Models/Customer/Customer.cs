@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MonitoringSys.Models
 {
-    public class Customer : IEntity<int>
+    public class Customer : IBaseEntity<int>
     {
         public int Id { get; set; }
         [Required]

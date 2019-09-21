@@ -1,4 +1,5 @@
 ﻿using MonitoringSys.DATA;
+using MonitoringSys.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace MonitoringSys.Repositories
             catch
             { }
         }
-        public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class
+        public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class,IBaseEntity
         {
             if (_Repositories.Keys.Contains(typeof(TEntity)))
                 return _Repositories[typeof(TEntity)] as IRepository<TEntity>;

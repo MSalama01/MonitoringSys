@@ -12,7 +12,7 @@ namespace MonitoringSys.Repositories
     public interface ICustomerRepository : IRepository<Customer>
     {
     }
-    public class CustomerRepository : Repository<Customer>, ICustomerRepository
+    public class CustomerRepository : Repository<Customer>, ICustomerRepository 
     {
         public CustomerRepository(MainDbContext dbContext) : base(dbContext)
         {

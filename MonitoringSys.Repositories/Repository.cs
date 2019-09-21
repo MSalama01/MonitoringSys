@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MonitoringSys.DATA;
+using MonitoringSys.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MonitoringSys.Repositories
 {
-    public  class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IBaseEntity
     {
         private readonly MainDbContext _dbContext;
         public Repository(MainDbContext dbContext)
@@ -101,7 +102,7 @@ namespace MonitoringSys.Repositories
             return result;
         }
 
-        public virtual IQueryable<TEntity> SearchBy(
+        public virtual IQueryable<TEntity> GetAll(
                 Expression<Func<TEntity, bool>> searchBy,
                 params Expression<Func<TEntity, object>>[] includes)
         {
@@ -113,6 +114,6 @@ namespace MonitoringSys.Repositories
             return result;
         }
 
-        
+
     }
 }

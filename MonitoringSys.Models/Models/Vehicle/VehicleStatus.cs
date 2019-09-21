@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MonitoringSys.Models
 {
-    public class VehicleStatus : IEntity<int>
+    public class VehicleStatus : IBaseEntity<int>
     {
 
         [ForeignKey("Vehicle")]

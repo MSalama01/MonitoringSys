@@ -15,11 +15,15 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0-rc1.19456.10" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0-rc1-19462-10" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.0.0-rc3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.0.0-rc3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.0.0-rc3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MonitoringSys.DATA\MonitoringSys.DATA.csproj" />
     <ProjectReference Include="..\MonitoringSys.Repositories\MonitoringSys.Repositories.csproj" />
+    <ProjectReference Include="..\MonitoringSys.Services\MonitoringSys.Services.csproj" />
   </ItemGroup>
 
 </Project>

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MonitoringSys.Models
 {
-    public class Vehicle : IEntity<int>
+    public class Vehicle : IBaseEntity<int>
     {
         public int Id { get; set; }
         [Required]

@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29230.61
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitoringSys", "MonitoringSys\MonitoringSys.csproj", "{A7EECDBA-B725-40DC-9241-58189B0E38C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonitoringSys", "MonitoringSys\MonitoringSys.csproj", "{A7EECDBA-B725-40DC-9241-58189B0E38C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitoringSys.DATA", "MonitoringSys.DATA\MonitoringSys.DATA.csproj", "{127B2CBE-1AA8-4573-B0C6-B2F8E7E50ED2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonitoringSys.DATA", "MonitoringSys.DATA\MonitoringSys.DATA.csproj", "{127B2CBE-1AA8-4573-B0C6-B2F8E7E50ED2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitoringSys.Models", "MonitoringSys.Models\MonitoringSys.Models.csproj", "{439B9B89-66E9-4BB6-BFB6-C2980D0EB6F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonitoringSys.Models", "MonitoringSys.Models\MonitoringSys.Models.csproj", "{439B9B89-66E9-4BB6-BFB6-C2980D0EB6F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitoringSys.Services", "MonitoringSys.Services\MonitoringSys.Services.csproj", "{EA7AA339-D71E-45B3-8DD5-0F8AADA6C843}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonitoringSys.Services", "MonitoringSys.Services\MonitoringSys.Services.csproj", "{EA7AA339-D71E-45B3-8DD5-0F8AADA6C843}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitoringSys.Repositories", "MonitoringSys.Repositories\MonitoringSys.Repositories.csproj", "{83316DE1-EEB7-4E78-B263-7176BB8730AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonitoringSys.Repositories", "MonitoringSys.Repositories\MonitoringSys.Repositories.csproj", "{83316DE1-EEB7-4E78-B263-7176BB8730AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitoringSys.Angular", "MonitoringSys.Angular\MonitoringSys.Angular.csproj", "{78C634F7-8F51-45A8-A590-070CFD8AFE8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{83316DE1-EEB7-4E78-B263-7176BB8730AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83316DE1-EEB7-4E78-B263-7176BB8730AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83316DE1-EEB7-4E78-B263-7176BB8730AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78C634F7-8F51-45A8-A590-070CFD8AFE8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78C634F7-8F51-45A8-A590-070CFD8AFE8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78C634F7-8F51-45A8-A590-070CFD8AFE8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78C634F7-8F51-45A8-A590-070CFD8AFE8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
