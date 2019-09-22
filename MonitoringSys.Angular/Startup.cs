@@ -13,7 +13,7 @@ namespace MonitoringSys.Angular
     {
         public Startup(IConfiguration configuration)
         {
-            MonitoringSys
+
             Configuration = configuration;
         }
 

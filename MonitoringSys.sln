@@ -13,7 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonitoringSys.Services", "M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonitoringSys.Repositories", "MonitoringSys.Repositories\MonitoringSys.Repositories.csproj", "{83316DE1-EEB7-4E78-B263-7176BB8730AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitoringSys.Angular", "MonitoringSys.Angular\MonitoringSys.Angular.csproj", "{78C634F7-8F51-45A8-A590-070CFD8AFE8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonitoringSys.Angular", "MonitoringSys.Angular\MonitoringSys.Angular.csproj", "{78C634F7-8F51-45A8-A590-070CFD8AFE8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitoringSys.Tests", "MonitoringSys.Tests\MonitoringSys.Tests.csproj", "{F83F588C-7121-4FDE-BB2B-F68F9301952E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{16383EE7-2507-43CF-8F9B-4DBFD3CDA611}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,9 +49,16 @@ Global
 		{78C634F7-8F51-45A8-A590-070CFD8AFE8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78C634F7-8F51-45A8-A590-070CFD8AFE8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78C634F7-8F51-45A8-A590-070CFD8AFE8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F83F588C-7121-4FDE-BB2B-F68F9301952E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F83F588C-7121-4FDE-BB2B-F68F9301952E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F83F588C-7121-4FDE-BB2B-F68F9301952E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F83F588C-7121-4FDE-BB2B-F68F9301952E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F83F588C-7121-4FDE-BB2B-F68F9301952E} = {16383EE7-2507-43CF-8F9B-4DBFD3CDA611}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C9031CA7-909E-4D77-853E-D041F4EFC716}

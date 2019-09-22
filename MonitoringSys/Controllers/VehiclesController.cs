@@ -11,17 +11,49 @@ using MonitoringSys.Services;
 
 namespace MonitoringSys.Controllers
 {
+    public class VehicleDTO:Vehicle
+    {
+        public int FilterCustomerId { get; set; }
+        public SelectList Customers { get; set; }
+        public List<Vehicle> Vehicles { get; set; }
+    }
+
     public class VehiclesController : BaseController<Vehicle>
     {
-        public VehiclesController(IService<Vehicle> service) : base(service)
+        private readonly IService<Customer> _CustomerService;
+        public VehiclesController(IService<Vehicle> service, IService<Customer> customerService) : base(service)
         {
-
+            _CustomerService = customerService;
         }
         //  GET: Vehicles
         public override async Task<IActionResult> Index()
         {
-            var Vehicles = _Service.GetAll(a => a.Customer);
-            return View(await Vehicles);
+            //Use AutoMap Better ...
+            VehicleDTO vehicleDTO = new VehicleDTO()
+            {
+                Customers = new SelectList(await _CustomerService.GetAll(), nameof(Customer.Id), nameof(Customer.Name), -1),
+                Vehicles = new List<Vehicle>(await _Service.GetAll())
+            };
+
+            
+
+            return View(vehicleDTO);
+        }
+
+        //  GET: Vehicles
+        [HttpPost]
+        public  async Task<IActionResult> Index(int Id)
+        {
+            //Use AutoMap Better ...
+            VehicleDTO vehicleDTO = new VehicleDTO()
+            {
+                Customers = new SelectList(await _CustomerService.GetAll(), nameof(Customer.Id), nameof(Customer.Name), -1),
+                Vehicles = new List<Vehicle>(await _Service.GetAll())
+            };
+
+
+
+            return View(vehicleDTO);
         }
     }
 }

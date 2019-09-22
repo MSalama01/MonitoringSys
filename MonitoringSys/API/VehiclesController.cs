@@ -11,5 +11,6 @@ namespace MonitoringSys.API
         public VehiclesController(IService<Vehicle> service) : base(service)
         {
         }
+
     }
 }

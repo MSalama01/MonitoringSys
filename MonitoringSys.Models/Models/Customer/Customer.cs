@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace MonitoringSys.Models
 {
@@ -15,6 +16,7 @@ namespace MonitoringSys.Models
 
         public string City { get; set; }
 
+        [JsonIgnore]
         public virtual ICollection<Vehicle> Vehicles { get; set; }
 
     }

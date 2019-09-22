@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace MonitoringSys.Models
 {
@@ -14,6 +15,7 @@ namespace MonitoringSys.Models
         public int CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
 
+        [JsonIgnore]
         public virtual VehicleStatus VehicleStatus { get; set; }
     }
 }
