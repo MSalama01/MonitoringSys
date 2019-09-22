@@ -11,7 +11,7 @@ namespace MonitoringSys.API
     [Route("api/[controller]")]
     public abstract class BaseAPIController<TEntity> : ControllerBase where TEntity : class, IBaseEntity
     {
-        private readonly IService<TEntity> _service;
+        protected readonly IService<TEntity> _service;
 
         protected BaseAPIController(IService<TEntity> service)
         {

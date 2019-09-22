@@ -26,35 +26,31 @@ namespace MonitoringSys.Controllers
             _CustomerService = customerService;
         }
         //  GET: Vehicles
-        public override async Task<IActionResult> Index()
+        public override async Task<IActionResult> Index(int? id)
         {
-            //Use AutoMap Better ...
+
+            //Use AutoMaper Best for this case in Serivces Layer ...
             VehicleDTO vehicleDTO = new VehicleDTO()
             {
                 Customers = new SelectList(await _CustomerService.GetAll(), nameof(Customer.Id), nameof(Customer.Name), -1),
-                Vehicles = new List<Vehicle>(await _Service.GetAll())
+                Vehicles = new List<Vehicle>(await _Service.GetAll(
+                                    a => (id == null) ?true :a.CustomerId == id,
+                                    a => a.VehicleStatus,a =>a.VehicleStatus.VehicleStatusUpdates)),
+                FilterCustomerId = id ?? 0,
             };
-
-            
 
             return View(vehicleDTO);
         }
 
-        //  GET: Vehicles
-        [HttpPost]
-        public  async Task<IActionResult> Index(int Id)
+        // GET: Vehicles/Create
+        public override IActionResult Create()
         {
-            //Use AutoMap Better ...
-            VehicleDTO vehicleDTO = new VehicleDTO()
-            {
-                Customers = new SelectList(await _CustomerService.GetAll(), nameof(Customer.Id), nameof(Customer.Name), -1),
-                Vehicles = new List<Vehicle>(await _Service.GetAll())
-            };
-
-
-
-            return View(vehicleDTO);
+            ViewData["CustomerId"] = new SelectList(_CustomerService.GetAll().Result, "Id", "Name");
+            return base.Create();
         }
+
+     
+
     }
 }
 

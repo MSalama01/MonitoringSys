@@ -15,7 +15,7 @@ namespace MonitoringSys.Controllers
         }
 
         // GET: 
-        public virtual async Task<IActionResult> Index()
+        public virtual async Task<IActionResult> Index(int? id)
         {
             return View(await _Service.GetAll());
         }
@@ -38,7 +38,7 @@ namespace MonitoringSys.Controllers
         }
 
         // GET: /Create
-        public virtual IActionResult Create()
+        public  virtual IActionResult Create()
         {
             return View();
         }
