@@ -1,4 +1,4 @@
-﻿@model MonitoringSys.Controllers.VehicleDTO
+﻿@model MonitoringSys.Controllers.VehicleListDTO
 
 @{
     ViewData["Title"] = "Index";
@@ -48,7 +48,7 @@
                     @Html.DisplayFor(modelItem => item.Customer.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.VehicleStatus.VehicleStatusUpdates.Last().VehicleStatus)
+                   @*@Html.DisplayFor(modelItem => "")*@
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

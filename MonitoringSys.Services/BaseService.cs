@@ -9,13 +9,16 @@ using System.Threading.Tasks;
 
 namespace MonitoringSys.Services
 {
-    public class Service<TEntity> : IService<TEntity> where TEntity : class, IBaseEntity
+    public class BaseService<TEntity> : IBaseService<TEntity> where TEntity : class, IBaseEntity
     {
-        private readonly IRepository<TEntity> _repository;
-        public Service(IUnitOfWork unitOfWork)
+        private readonly IBaseRepository<TEntity> _repository;
+  
+        public BaseService(IUnitOfWork unitOfWork)
         {
             _repository = unitOfWork.GetRepository<TEntity>();
         }
+
+
         public virtual async Task<bool> Add(TEntity entity)
         {
             return await _repository.Add(entity);
@@ -28,9 +31,13 @@ namespace MonitoringSys.Services
         {
             return await _repository.Delete(entity);
         }
-        public async Task<TEntity> Get(object id)
+        public virtual async Task<TEntity> Get(object id, params Expression<Func<TEntity, object>>[] includes)
         {
-            return await _repository.Get(id);
+            return await _repository.Get(id, includes);
+        }
+        public async Task<TEntity> Get(Expression<Func<TEntity, bool>> SearchBy, params Expression<Func<TEntity, object>>[] includes)
+        {
+            return await _repository.Get(SearchBy, includes);
         }
         public bool Any(object id)
         {
@@ -64,5 +71,7 @@ namespace MonitoringSys.Services
         {
             return await _repository.GetAll(searchBy, includes).ToListAsync();
         }
+
+       
     }
 }

@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace MonitoringSys.Repositories
 {
-    public interface ICustomerRepository : IRepository<Customer>
+    public interface ICustomerRepository : IBaseRepository<Customer>
     {
     }
-    public class CustomerRepository : Repository<Customer>, ICustomerRepository 
+    public class CustomerRepository : BaseRepository<Customer>, ICustomerRepository 
     {
         public CustomerRepository(MainDbContext dbContext) : base(dbContext)
         {

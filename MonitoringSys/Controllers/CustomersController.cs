@@ -10,14 +10,16 @@ using MonitoringSys.Services;
 namespace MonitoringSys.Controllers
 {
 
-
     public class CustomersController : BaseController<Customer>
     {
-        public CustomersController(IService<Customer> service) : base(service)
+        public CustomersController(IBaseService<Customer> service) : base(service)
         {
         }
+
     }
 }
+
+
         //private readonly IService<Customer> _CustomerService;
 
         //public CustomersController(IService<Customer> service)//,ICustomerRepository customerRepository)

@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonitoringSys.Repositories"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonitoringSys.Angular", "MonitoringSys.Angular\MonitoringSys.Angular.csproj", "{78C634F7-8F51-45A8-A590-070CFD8AFE8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonitoringSys.Tests", "MonitoringSys.Tests\MonitoringSys.Tests.csproj", "{F83F588C-7121-4FDE-BB2B-F68F9301952E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MonitoringSys.Tests", "MonitoringSys.Tests\MonitoringSys.Tests.csproj", "{F83F588C-7121-4FDE-BB2B-F68F9301952E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{16383EE7-2507-43CF-8F9B-4DBFD3CDA611}"
 EndProject

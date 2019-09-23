@@ -51,8 +51,10 @@ namespace MonitoringSys
                     });
             });
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped(typeof(IService<>), typeof(Service<>));
+            services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
+            services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
+            services.AddScoped(typeof(IVehicleService), typeof(VehicleService));
+
 
             
 
@@ -90,6 +92,8 @@ namespace MonitoringSys
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Monitoring Api V1");
+               // c.IncludeXmlComments(string.Format(@"{0}\bin\SwaggerIntegrationDemo.xml", System.AppDomain.CurrentDomain.BaseDirectory));
+
             });
         }
     }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MonitoringSys.Repositories
 {
 
-    public interface IRepository<TEntity> where TEntity : class
+    public interface IBaseRepository<TEntity> where TEntity : class
     {
         Task<bool> Add(TEntity entity);
         Task<bool> Update(TEntity entity);

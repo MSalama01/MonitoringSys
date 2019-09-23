@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MonitoringSys.Models;
 
@@ -6,14 +7,16 @@ using MonitoringSys.Services;
 
 namespace MonitoringSys.Controllers
 {
+
     public abstract class BaseController<TEntity> : Controller where TEntity : class, IBaseEntity
     {
-        protected readonly IService<TEntity> _Service;
-        public BaseController(IService<TEntity> service)
+        protected readonly IBaseService<TEntity> _Service;
+        public BaseController(IBaseService<TEntity> service)
         {
             _Service = service;
         }
 
+        #region Controller Actions
         // GET: 
         public virtual async Task<IActionResult> Index(int? id)
         {
@@ -129,7 +132,9 @@ namespace MonitoringSys.Controllers
         {
             return _Service.Any(id);
         }
+        #endregion
 
+     
     }
 }
         //private readonly IService<Customer> _CustomerService;

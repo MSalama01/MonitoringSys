@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace MonitoringSys.Services
 {
-    public interface IVehicleService:IService<Vehicle>
+    public interface IVehicleService : IBaseService<Vehicle>
     {
         Task<bool> UpdateVehicleStatus(int id, bool IsResponse);
-        Task<VehicleStatusUpdate> GetLastVehicleStatusUpdate(int id);
+        VehicleStatusLog GetLastVehicleStatusUpdate(int id);
     }
-    class VehicleService : Service<Vehicle>, IVehicleService
+    public class VehicleService : BaseService<Vehicle>, IVehicleService
     {
-        private readonly IRepository<VehicleStatusUpdate> _VehicleStatusUpdateRepository;
+        private readonly IBaseRepository<VehicleStatusLog> _VehicleStatusUpdateRepository;
         public VehicleService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-            _VehicleStatusUpdateRepository = unitOfWork.GetRepository<VehicleStatusUpdate>();
+            _VehicleStatusUpdateRepository = unitOfWork.GetRepository<VehicleStatusLog>();
         }
 
         public override Task<bool> Add(Vehicle entity)
@@ -26,15 +26,15 @@ namespace MonitoringSys.Services
             // Initial Status NULL
             entity.VehicleStatus = new VehicleStatus()
             {
-                LastVehicleStatusUpdateId = null,
+                LastVehicleStatusLogId = null,
             };
 
             return base.Add(entity);
         }
 
-        public async Task<VehicleStatusUpdate> GetLastVehicleStatusUpdate(int id)
+        public VehicleStatusLog GetLastVehicleStatusUpdate(int id)
         {
-            return await _VehicleStatusUpdateRepository.Get(a => a.VehicleStatusId == id);
+            return _VehicleStatusUpdateRepository.Get(a => a.VehicleStatusId == id).Result;
         }
 
         bool RequestPingVehicle(int id)
@@ -49,26 +49,27 @@ namespace MonitoringSys.Services
                 return false;
 
 
-            var _Vehicle = await Get(id);
+            var _Vehicle = await Get(id, a => a.VehicleStatus);
 
             //Check Valid Response From The Vehicle Ping Request  ...
             IsResponse = RequestPingVehicle(_Vehicle.Id);
 
             //Get Last Status ...
-            var LastStatus = _Vehicle.VehicleStatus.LastVehicleStatusUpdateId is null ? null :
-                await GetLastVehicleStatusUpdate((int)_Vehicle.VehicleStatus.LastVehicleStatusUpdateId);
+            VehicleStatusLog LastStatus =
+                _Vehicle.VehicleStatus.LastVehicleStatusLogId == null ? null :
+                    GetLastVehicleStatusUpdate((int)_Vehicle.VehicleStatus.LastVehicleStatusLogId);
 
             // New Status For Vehicle ...
             if (LastStatus == null || LastStatus.IsResponse != IsResponse)
             {
-                _Vehicle.VehicleStatus.VehicleStatusUpdates.Add(new VehicleStatusUpdate()
+                _Vehicle.VehicleStatus.VehicleStatusLogs.Add(new VehicleStatusLog()
                 {
                     IsResponse = IsResponse,
                     UpdatedTime = DateTime.Now,
                     VehicleStatusId = _Vehicle.VehicleStatus.Id
                 });
 
-                _Vehicle.VehicleStatus.LastVehicleStatusUpdateId = _Vehicle.VehicleStatus.VehicleStatusUpdates.LastOrDefault().Id;
+                _Vehicle.VehicleStatus.LastVehicleStatusLogId = _Vehicle.VehicleStatus.VehicleStatusLogs.LastOrDefault().Id;
             }
 
             return true;

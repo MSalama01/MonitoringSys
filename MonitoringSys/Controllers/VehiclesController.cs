@@ -11,32 +11,43 @@ using MonitoringSys.Services;
 
 namespace MonitoringSys.Controllers
 {
-    public class VehicleDTO:Vehicle
+
+
+    public class VehicleListDTO : Vehicle
     {
         public int FilterCustomerId { get; set; }
         public SelectList Customers { get; set; }
         public List<Vehicle> Vehicles { get; set; }
+        public VehicleStatusLog LastVehicleStatusUpdate { get; set; }
     }
 
     public class VehiclesController : BaseController<Vehicle>
     {
-        private readonly IService<Customer> _CustomerService;
-        public VehiclesController(IService<Vehicle> service, IService<Customer> customerService) : base(service)
+        private readonly IVehicleService _VehicleService;
+        private readonly IBaseService<Customer> _CustomerService;
+        
+        public VehiclesController(IVehicleService service, IBaseService<Customer> customerService) : base(service)
         {
             _CustomerService = customerService;
+            _VehicleService = service;
         }
+
+
+
         //  GET: Vehicles
         public override async Task<IActionResult> Index(int? id)
         {
 
             //Use AutoMaper Best for this case in Serivces Layer ...
-            VehicleDTO vehicleDTO = new VehicleDTO()
+            VehicleListDTO vehicleDTO = new VehicleListDTO()
             {
-                Customers = new SelectList(await _CustomerService.GetAll(), nameof(Customer.Id), nameof(Customer.Name), -1),
+                Customers = new SelectList(await _CustomerService.GetAll(), nameof(Customer.Id), nameof(Customer.Name)),
+
                 Vehicles = new List<Vehicle>(await _Service.GetAll(
-                                    a => (id == null) ?true :a.CustomerId == id,
-                                    a => a.VehicleStatus,a =>a.VehicleStatus.VehicleStatusUpdates)),
+                                    a => (id == null) ? true : a.CustomerId == id,
+                                    a => a.VehicleStatus, a => a.VehicleStatus.LastVehicleStatusLogId)),
                 FilterCustomerId = id ?? 0,
+
             };
 
             return View(vehicleDTO);
@@ -49,7 +60,7 @@ namespace MonitoringSys.Controllers
             return base.Create();
         }
 
-     
+
 
     }
 }

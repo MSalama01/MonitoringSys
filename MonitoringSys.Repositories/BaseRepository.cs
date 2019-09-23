@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace MonitoringSys.Repositories
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, IBaseEntity
+    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class, IBaseEntity
     {
         private readonly MainDbContext _dbContext;
-        public Repository(MainDbContext dbContext)
+        public BaseRepository(MainDbContext dbContext)
         {
             _dbContext = dbContext;
         }
