@@ -16,12 +16,14 @@ namespace MonitoringSys.DATA
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.UseLazyLoadingProxies();
             base.OnConfiguring(optionsBuilder);
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<VehicleStatus>().HasOne(a => a.Vehicle).WithOne(b => b.VehicleStatus).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<VehicleLog>().HasOne(a => a.Vehicle).WithMany(b => b.VehicleLogs).OnDelete(DeleteBehavior.Restrict);
 
             foreach (IMutableForeignKey relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
@@ -31,9 +33,10 @@ namespace MonitoringSys.DATA
             base.OnModelCreating(modelBuilder);
         }
 
+     
+
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
-        public DbSet<VehicleStatus> VehicleStatuses { get; set; }
-        public DbSet<VehicleStatusLog> VehicleStatusUpdates { get; set; }
+        public DbSet<VehicleLog> VehicleLogs { get; set; }
     }
 }

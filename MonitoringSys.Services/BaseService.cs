@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace MonitoringSys.Services
 {
+
     public class BaseService<TEntity> : IBaseService<TEntity> where TEntity : class, IBaseEntity
     {
         private readonly IBaseRepository<TEntity> _repository;

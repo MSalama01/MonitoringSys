@@ -24,8 +24,10 @@ namespace MonitoringSys.Repositories
                 _dbContext.Set<TEntity>().Add(entity);
                 return await _dbContext.SaveChangesAsync() > 0 ? true : false;
             }
-            catch
+            catch (Exception Ex)
             {
+                //Log Exception Here
+                Console.WriteLine(Ex);
                 return await Task.FromResult(false);
             }
         }
@@ -34,15 +36,17 @@ namespace MonitoringSys.Repositories
         {
             try
             {
-                TEntity existing = _dbContext.Set<TEntity>().Find(entity);
-                if (existing is null)
-                    return await Task.FromResult(false);
+                _dbContext.Set<TEntity>().Attach(entity);
+                var entry = _dbContext.Entry(entity);
+                entry.State = EntityState.Modified;
+                return await _dbContext.SaveChangesAsync() > 0 ? true : false;
+
 
                 _dbContext.Entry(entity).State = EntityState.Modified;
                 _dbContext.Set<TEntity>().Attach(entity);
                 return await _dbContext.SaveChangesAsync() > 0 ? true : false;
             }
-            catch
+            catch (Exception Ex)
             {
                 return await Task.FromResult(false);
             }

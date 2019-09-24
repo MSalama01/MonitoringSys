@@ -4,14 +4,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MonitoringSys.Models
 {
-    public class VehicleStatusLog : IBaseEntity<int>
+    public class VehicleLog : IBaseEntity<int>
     {
+        
         public int Id { get; set; }
         public DateTime UpdatedTime { get; set; }
         public bool IsResponse { get; set; }
 
-        public int VehicleStatusId { get; set; }
-        [ForeignKey("VehicleStatusId")]
-        public virtual VehicleStatus VehicleStatus { get; set; }
+
+        [ForeignKey("Vehicle")]
+        public int VehicleId { get; set; }
+        public virtual Vehicle Vehicle { get; set; }
     }
 }

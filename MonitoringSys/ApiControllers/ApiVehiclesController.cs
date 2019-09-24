@@ -12,20 +12,33 @@ using MonitoringSys.Services;
 namespace MonitoringSys.ApiControllers
 {
 
-
+    /// <summary>
+    /// 
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    public class ApiVehiclesController : ApiBaseController<Vehicle>
+    public class VehiclesController : ApiBaseController<Vehicle>
     {
+
         private readonly IVehicleService _VehicleService;
-        public ApiVehiclesController(IVehicleService service) : base(service)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="service"></param>
+        public VehiclesController(IVehicleService service) : base(service)
         {
             _VehicleService = service;
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="IsResponse"></param>
+        /// <returns></returns>
         [HttpPost, Route("UpdateVehicleStatus")]
-        public async Task<bool> UpdateVehicleStatus([FromBody] int id, bool IsResponse)
+        public async Task<bool> UpdateVehicleStatus(int id, bool IsResponse)
         {
             return await _VehicleService.UpdateVehicleStatus(id, IsResponse);
         }

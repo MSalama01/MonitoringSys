@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
@@ -13,9 +14,17 @@ namespace MonitoringSys.Models
 
         [ForeignKey("Customer")]
         public int CustomerId { get; set; }
+        [JsonIgnore]
         public virtual Customer Customer { get; set; }
 
-        [JsonIgnore]
-        public virtual VehicleStatus VehicleStatus { get; set; }
+        /// <summary>
+        /// Best Performance : Refrence to last Log Prevent search for last log ...
+        /// </summary>
+        [ForeignKey("LastVehicleLog")]
+        public int? LastVehicleLogId { get; set; }
+        public virtual VehicleLog LastVehicleLog { get; set; }
+
+        public virtual ICollection<VehicleLog> VehicleLogs { get; set; }
+
     }
 }

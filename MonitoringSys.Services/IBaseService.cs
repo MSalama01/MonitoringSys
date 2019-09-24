@@ -5,7 +5,11 @@ using System.Threading.Tasks;
 
 namespace MonitoringSys.Services
 {   
-    public interface IBaseService<TEntity>  where TEntity : class
+    public interface IBaseService
+    {
+
+    }
+    public interface IBaseService<TEntity> : IBaseService  where TEntity : class
     {
         Task<bool> Add(TEntity entity);
         Task<bool> Delete(TEntity entity);

@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MonitoringSys</name>
+    </assembly>
+    <members>
+        <member name="T:MonitoringSys.ApiControllers.VehiclesController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:MonitoringSys.ApiControllers.VehiclesController.#ctor(MonitoringSys.Services.IVehicleService)">
+            <summary>
+            
+            </summary>
+            <param name="service"></param>
+        </member>
+        <member name="M:MonitoringSys.ApiControllers.VehiclesController.UpdateVehicleStatus(System.Int32,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <param name="IsResponse"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MonitoringSys.ApiControllers.ApiBaseController`1">
+            <summary>
+            
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+        </member>
+        <member name="M:MonitoringSys.ApiControllers.ApiBaseController`1.#ctor(MonitoringSys.Services.IBaseService{`0})">
+            <summary>
+            
+            </summary>
+            <param name="baseService"></param>
+        </member>
+        <member name="M:MonitoringSys.ApiControllers.ApiBaseController`1.GetAllAsync">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:MonitoringSys.ApiControllers.ApiBaseController`1.GetAsync(System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MonitoringSys.ApiControllers.ApiBaseController`1.PostAsync(`0)">
+            <summary>
+            
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MonitoringSys.ApiControllers.ApiBaseController`1.PutAsync(`0)">
+            <summary>
+            
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MonitoringSys.ApiControllers.ApiBaseController`1.DeleteAsync(`0)">
+            <summary>
+            
+            </summary>
+            <param name="entity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MonitoringSys.ApiControllers.ApiBaseController`1.CheckIfExist(System.Object)">
+            <summary>
+            Check If the Entity Exists
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:MonitoringSys.Controllers.VehiclesController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:MonitoringSys.Controllers.VehiclesController.#ctor(MonitoringSys.Services.IVehicleService,MonitoringSys.Services.IBaseService{MonitoringSys.Models.Customer})">
+            <summary>
+            
+            </summary>
+            <param name="service"></param>
+            <param name="customerService"></param>
+        </member>
+        <member name="M:MonitoringSys.Controllers.VehiclesController.Index(System.Nullable{System.Int32})">
+            <summary>
+                GET: Vehicles
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MonitoringSys.Controllers.VehiclesController.Create">
+            <summary>
+            GET: Vehicles/Create
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

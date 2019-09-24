@@ -52,6 +52,9 @@ namespace MonitoringSys.DATA.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("LastVehicleLogId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -63,23 +66,12 @@ namespace MonitoringSys.DATA.Migrations
 
                     b.HasIndex("CustomerId");
 
+                    b.HasIndex("LastVehicleLogId");
+
                     b.ToTable("Vehicles");
                 });
 
-            modelBuilder.Entity("MonitoringSys.Models.VehicleStatus", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("LastVehicleStatusLogId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("VehicleStatuses");
-                });
-
-            modelBuilder.Entity("MonitoringSys.Models.VehicleStatusLog", b =>
+            modelBuilder.Entity("MonitoringSys.Models.VehicleLog", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -92,14 +84,14 @@ namespace MonitoringSys.DATA.Migrations
                     b.Property<DateTime>("UpdatedTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("VehicleStatusId")
+                    b.Property<int>("VehicleId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("VehicleStatusId");
+                    b.HasIndex("VehicleId");
 
-                    b.ToTable("VehicleStatusUpdates");
+                    b.ToTable("VehicleLogs");
                 });
 
             modelBuilder.Entity("MonitoringSys.Models.Vehicle", b =>
@@ -109,22 +101,18 @@ namespace MonitoringSys.DATA.Migrations
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("MonitoringSys.Models.VehicleLog", "LastVehicleLog")
+                        .WithMany()
+                        .HasForeignKey("LastVehicleLogId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("MonitoringSys.Models.VehicleStatus", b =>
+            modelBuilder.Entity("MonitoringSys.Models.VehicleLog", b =>
                 {
                     b.HasOne("MonitoringSys.Models.Vehicle", "Vehicle")
-                        .WithOne("VehicleStatus")
-                        .HasForeignKey("MonitoringSys.Models.VehicleStatus", "Id")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("MonitoringSys.Models.VehicleStatusLog", b =>
-                {
-                    b.HasOne("MonitoringSys.Models.VehicleStatus", "VehicleStatus")
-                        .WithMany("VehicleStatusLogs")
-                        .HasForeignKey("VehicleStatusId")
+                        .WithMany("VehicleLogs")
+                        .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

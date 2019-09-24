@@ -11,21 +11,19 @@ using MonitoringSys.Services;
 
 namespace MonitoringSys.Controllers
 {
-
-
-    public class VehicleListDTO : Vehicle
-    {
-        public int FilterCustomerId { get; set; }
-        public SelectList Customers { get; set; }
-        public List<Vehicle> Vehicles { get; set; }
-        public VehicleStatusLog LastVehicleStatusUpdate { get; set; }
-    }
-
+    /// <summary>
+    /// 
+    /// </summary>
     public class VehiclesController : BaseController<Vehicle>
     {
         private readonly IVehicleService _VehicleService;
         private readonly IBaseService<Customer> _CustomerService;
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="service"></param>
+        /// <param name="customerService"></param>
         public VehiclesController(IVehicleService service, IBaseService<Customer> customerService) : base(service)
         {
             _CustomerService = customerService;
@@ -33,27 +31,22 @@ namespace MonitoringSys.Controllers
         }
 
 
+        /// <summary>
+        ///     GET: Vehicles
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
 
-        //  GET: Vehicles
         public override async Task<IActionResult> Index(int? id)
         {
-
-            //Use AutoMaper Best for this case in Serivces Layer ...
-            VehicleListDTO vehicleDTO = new VehicleListDTO()
-            {
-                Customers = new SelectList(await _CustomerService.GetAll(), nameof(Customer.Id), nameof(Customer.Name)),
-
-                Vehicles = new List<Vehicle>(await _Service.GetAll(
-                                    a => (id == null) ? true : a.CustomerId == id,
-                                    a => a.VehicleStatus, a => a.VehicleStatus.LastVehicleStatusLogId)),
-                FilterCustomerId = id ?? 0,
-
-            };
-
-            return View(vehicleDTO);
+            return View(await _VehicleService.GetVehiclesDTO(id));
         }
 
-        // GET: Vehicles/Create
+       
+        /// <summary>
+        /// GET: Vehicles/Create
+        /// </summary>
+        /// <returns></returns>
         public override IActionResult Create()
         {
             ViewData["CustomerId"] = new SelectList(_CustomerService.GetAll().Result, "Id", "Name");

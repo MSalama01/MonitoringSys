@@ -1,4 +1,4 @@
-﻿@model MonitoringSys.Controllers.VehicleListDTO
+﻿@model MonitoringSys.Models.ModelsDTO.VehicleListDTO
 
 @{
     ViewData["Title"] = "Index";
@@ -11,7 +11,7 @@
 </p>
 <div>
     <div class="form-group">
-        <select id="CustomerFilter" asp-for="@Model.FilterCustomerId" class="form-control" asp-items="@Model.Customers">
+        <select id="CustomerFilter" asp-for="@Model.FilterCustomerId" class="form-control" asp-items="@Model.FilterCustomers">
             <option value="">All Customers</option>
         </select>
     </div>
@@ -26,10 +26,10 @@
                 @Html.DisplayNameFor(model => model.Number)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Customer)
+                @Html.DisplayNameFor(model => model.CustomerName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VehicleStatus)
+                @Html.DisplayNameFor(model => model.LastVehicleLogResponse)
             </th>
             <th></th>
         </tr>
@@ -45,10 +45,11 @@
                     @Html.DisplayFor(modelItem => item.Number)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Customer.Name)
+                    @Html.DisplayFor(modelItem => item.CustomerName)
                 </td>
                 <td>
-                   @*@Html.DisplayFor(modelItem => "")*@
+                    @Html.DisplayFor(modelItem => item.LastVehicleLogDateTime)
+                    @Html.DisplayFor(modelItem => item.LastVehicleLogResponse)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -67,6 +68,10 @@
 
                 window.location.href = "@Url.Action("Index","Vehicles")" + "?id=" + $(this).find(":selected").val();
             });
+
+             setInterval(function() {
+                  window.location.reload();
+                }, 60000); 
         });
 
     </script>

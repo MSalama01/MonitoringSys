@@ -1,45 +1,66 @@
-﻿using MonitoringSys.Models;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using MonitoringSys.Models;
+using MonitoringSys.Models.ModelsDTO;
 using MonitoringSys.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace MonitoringSys.Services
 {
     public interface IVehicleService : IBaseService<Vehicle>
     {
+        Task<VehicleListDTO> GetVehiclesDTO(int? custId);
         Task<bool> UpdateVehicleStatus(int id, bool IsResponse);
-        VehicleStatusLog GetLastVehicleStatusUpdate(int id);
     }
     public class VehicleService : BaseService<Vehicle>, IVehicleService
     {
-        private readonly IBaseRepository<VehicleStatusLog> _VehicleStatusUpdateRepository;
-        public VehicleService(IUnitOfWork unitOfWork) : base(unitOfWork)
+
+        private readonly IBaseService<Customer> _CustomerService; 
+        private readonly IBaseService<VehicleLog> _vehicleLogService; 
+
+        public VehicleService(IUnitOfWork unitOfWork,IBaseService<Customer> customerService,IBaseService<VehicleLog> vehicleLogService) : base(unitOfWork)
         {
-            _VehicleStatusUpdateRepository = unitOfWork.GetRepository<VehicleStatusLog>();
+            _CustomerService = customerService;
+            _vehicleLogService = vehicleLogService;
         }
 
-        public override Task<bool> Add(Vehicle entity)
+
+        public override async Task<bool> Add(Vehicle entity)
         {
-            // Initial Status NULL
-            entity.VehicleStatus = new VehicleStatus()
+            return await base.Add(entity);
+        }
+
+        public async Task<VehicleListDTO> GetVehiclesDTO(int? custId)
+        {
+            var _Vehicles = GetAll(a =>
+                    custId == null ? true : a.CustomerId == custId, // Filter
+                    a => a.Customer, a => a.LastVehicleLog ) //Include
+                .Result.ToList();
+
+            return _ = new VehicleListDTO()
             {
-                LastVehicleStatusLogId = null,
+                FilterCustomerId = custId,
+                FilterCustomers = new SelectList(await _CustomerService.GetAll(), "Id", "Name"),
+                Vehicles = new List<VehicleDTO>(_Vehicles.Select(a=>
+                        new VehicleDTO()
+                        {
+                            Id = a.Id,
+                            Name = a.Name,
+                            Number = a.Number,
+                            LastVehicleLogId = a.LastVehicleLogId,
+
+                            LastVehicleLogDateTime = a.LastVehicleLog?.UpdatedTime ?? null,
+                            LastVehicleLogResponse = a.LastVehicleLog?.IsResponse ?? null,
+
+                            CustomerId = a.CustomerId,
+                            CustomerName = a.Customer.Name,
+                        })),
             };
-
-            return base.Add(entity);
-        }
-
-        public VehicleStatusLog GetLastVehicleStatusUpdate(int id)
-        {
-            return _VehicleStatusUpdateRepository.Get(a => a.VehicleStatusId == id).Result;
-        }
-
-        bool RequestPingVehicle(int id)
-        {
-            return true;
         }
 
 
@@ -49,31 +70,47 @@ namespace MonitoringSys.Services
                 return false;
 
 
-            var _Vehicle = await Get(id, a => a.VehicleStatus);
+            var _Vehicle = await Get(id, a => a.LastVehicleLog);
 
             //Check Valid Response From The Vehicle Ping Request  ...
-            IsResponse = RequestPingVehicle(_Vehicle.Id);
+            //IsResponse = RequestPingVehicle(_Vehicle.Id);
 
             //Get Last Status ...
-            VehicleStatusLog LastStatus =
-                _Vehicle.VehicleStatus.LastVehicleStatusLogId == null ? null :
-                    GetLastVehicleStatusUpdate((int)_Vehicle.VehicleStatus.LastVehicleStatusLogId);
 
-            // New Status For Vehicle ...
-            if (LastStatus == null || LastStatus.IsResponse != IsResponse)
+
+            // New Status For Vehicle if no logs or Different Status ...
+            if (_Vehicle.LastVehicleLogId == null || _Vehicle.LastVehicleLog.IsResponse != IsResponse)
             {
-                _Vehicle.VehicleStatus.VehicleStatusLogs.Add(new VehicleStatusLog()
+                var _NewStatus = new VehicleLog()
                 {
                     IsResponse = IsResponse,
                     UpdatedTime = DateTime.Now,
-                    VehicleStatusId = _Vehicle.VehicleStatus.Id
-                });
+                    VehicleId = _Vehicle.Id,
+                };
+                await _vehicleLogService.Add(_NewStatus);
 
-                _Vehicle.VehicleStatus.LastVehicleStatusLogId = _Vehicle.VehicleStatus.VehicleStatusLogs.LastOrDefault().Id;
+                //Ref to last Id
+                _Vehicle.LastVehicleLogId = _NewStatus.Id;
+                return await Update(_Vehicle);
+            }
+            else // Update time ...
+            {
+                var _LastLog = await _vehicleLogService.Get(_Vehicle.LastVehicleLogId);
+                _LastLog.UpdatedTime = DateTime.Now;
+                return await _vehicleLogService.Update(_LastLog);
             }
 
-            return true;
-
         }
+
+        private bool RequestPingVehicle(int id)
+        {
+            /// Logic Ping For Vehicles ...........
+            if (id != -1)
+                return true;
+
+            return false;
+        }
+
+
     }
 }
