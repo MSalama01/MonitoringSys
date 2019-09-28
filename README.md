@@ -4,7 +4,7 @@ Moitoring System
 
 Summary
 
-Using Union Architect :-
+Using Onion Architect :
 
   -Models
   -DbContext
